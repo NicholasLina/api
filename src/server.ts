@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import rateLimit from "express-rate-limit"
 
 import weatherRouter from "./routes/weather";
+import fallbackRouter from "./routes/fallback";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ const limiter = rateLimit({
 app.use(limiter)
 app.set('trust proxy', 1)
 
-app.use('/weather/', weatherRouter)
+app.use('/weather', weatherRouter)
+app.use("*", fallbackRouter)
 
 // Enable cors
 app.use(cors());

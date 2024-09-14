@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server",
     "start": "node build/server",
-    "build": "tsc"
+    "build": "npx tsc"
   },
   "author": "Nick Lina",
   "license": "ISC",

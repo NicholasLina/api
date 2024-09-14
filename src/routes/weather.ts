@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { fetchWeatherApi } from 'openmeteo';
 import dotenv from 'dotenv';
 import apicache from 'apicache'
+import getErrorMessage from "../util/getErrorMessage";
 
 dotenv.config()
 
@@ -41,9 +42,18 @@ weatherRouter.get('/:lat-:lon', cache('15 minutes'), async (req: Request, res: R
         };
 
         res.status(200).json(weatherData)
-    } catch (err) {
-        console.error(err)
-        res.status(500).json({ message: err })
+    } catch (error: unknown) {
+        res.status(500).json({ message: getErrorMessage(error) })
+    }
+});
+
+weatherRouter.get('/', async (req: Request ,res: Response) => {
+    if(req) // Keeping TS happy
+    try{
+        res.status(200).json({ message: "No latitude or longitude specified" })
+
+    } catch (error: unknown) {
+        res.status(500).json({ message: getErrorMessage(error) })
     }
 });
 
