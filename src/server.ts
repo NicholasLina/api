@@ -26,4 +26,8 @@ app.use("*", fallbackRouter)
 // Enable cors
 app.use(cors());
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+}
+
+export default app
