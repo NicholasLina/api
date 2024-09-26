@@ -1,0 +1,7 @@
+version: "3.9" 
+services:
+  api:
+    image: api
+    stdin_open: true
+    ports:
+      - "9000:9000"

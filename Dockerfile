@@ -5,7 +5,6 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm i
-RUN tsc
 
 COPY . .
 
