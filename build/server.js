@@ -23,5 +23,8 @@ app.use('/weather', weather_1.default);
 app.use("*", fallback_1.default);
 // Enable cors
 app.use((0, cors_1.default)());
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+}
+exports.default = app;
 //# sourceMappingURL=server.js.map
