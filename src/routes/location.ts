@@ -21,9 +21,8 @@ locationRouter.get('/:location', cache('15 minutes'), async (req: Request, res: 
             locationString: locationData.features[0].properties.formatted
         }
 
-        console.log(formattedLocation)
         res.header("Access-Control-Allow-Origin", '*');
-        res.status(200).json(locationData)
+        res.status(200).json(formattedLocation)
     } catch (error: unknown) {
         res.status(500).json({ message: getErrorMessage(error) })
     }

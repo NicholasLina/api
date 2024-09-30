@@ -14,14 +14,14 @@ const weatherDataParams = [
   'windDirection'
 ]
 
-describe('Weather Endpoints', () => {
+describe('Get weather from latitude and longitude', () => {
   it('should retrieve an object containing valid weather data', async () => {
     const res: Response = await request(app)
       .get('/weather/43.653225--79.383186')
       .expect(200)
       .expect('Content-Type', 'application/json; charset=utf-8')
 
-    for ( let param of weatherDataParams ) {
+    for (let param of weatherDataParams) {
       expect(res.body).toHaveProperty(param)
     }
 
@@ -62,5 +62,17 @@ describe('Weather Endpoints', () => {
 
     expect(res.body.windDirection).toBeLessThanOrEqual(ACCEPTABLE_MAXIMUM_DEGREE)
     expect(res.body.windDirection).toBeGreaterThanOrEqual(ACCEPTABLE_MINIMUM_DEGREE)
+  })
+})
+
+describe('Get weather with missing params', () => {
+  it('should return an error message', async () => {
+    const res: Response = await request(app)
+      .get('/weather/')
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      
+      expect(res.body).toHaveProperty('message')
+      expect(res.body.message).toEqual("No latitude or longitude specified")
   })
 })
