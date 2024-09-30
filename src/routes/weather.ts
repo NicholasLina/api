@@ -41,6 +41,7 @@ weatherRouter.get('/:lat-:lon', cache('15 minutes'), async (req: Request, res: R
             windDirection:          current.variables(6)!.value(),
         };
 
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(200).json(weatherData)
     } catch (error: unknown) {
         res.status(500).json({ message: getErrorMessage(error) })

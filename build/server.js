@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-// import cors from "cors"
+const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const weather_1 = __importDefault(require("./routes/weather"));
@@ -22,7 +22,7 @@ app.set('trust proxy', 1);
 app.use('/weather', weather_1.default);
 app.use("*", fallback_1.default);
 // Enable cors
-// app.use(cors());
+app.use((0, cors_1.default)());
 if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 }

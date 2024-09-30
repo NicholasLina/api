@@ -1,5 +1,5 @@
 import express from "express"
-// import cors from "cors"
+import cors from "cors"
 import dotenv from "dotenv"
 import rateLimit from "express-rate-limit"
 
@@ -24,7 +24,7 @@ app.use('/weather', weatherRouter)
 app.use("*", fallbackRouter)
 
 // Enable cors
-// app.use(cors());
+app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
