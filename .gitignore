@@ -1,5 +1,8 @@
 # Dependency directories
 node_modules
 
-#build files
+# Build files
 build
+
+# Sensitive data
+.env
