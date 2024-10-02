@@ -29,21 +29,22 @@ weatherRouter.get('/:lat-:lon', cache('15 minutes'), async (req: Request, res: R
 
         // Variables index must match index in the params arrays
         const weatherData = {
-            temperature:            Math.round(current.variables(0)!.value()),
-            apparentTemperature:    Math.round(current.variables(1)!.value()),
-            temperatureMax:         Math.round(daily.variables(0)!.valuesArray()!["0"]),
-            temperatureMin:         Math.round(daily.variables(1)!.valuesArray()!["0"]),
+            temperature:            parseFloat(current.variables(0)!.value().toFixed(1)),
+            apparentTemperature:    parseFloat(current.variables(1)!.value().toFixed(2)),
+            temperatureMax:         parseFloat(daily.variables(0)!.valuesArray()!["0"].toFixed(2)),
+            temperatureMin:         parseFloat(daily.variables(1)!.valuesArray()!["0"].toFixed(2)),
             relativeHumidity:       current.variables(2)!.value(),
-            precipitation:          daily.variables(2)!.valuesArray()!["0"],
+            precipitation:          daily.variables(2)!.valuesArray()!["0"].toFixed(2),
             weatherCode:            current.variables(3)!.value(),
             cloudCover:             current.variables(4)!.value(),
-            windSpeed:              Math.round(current.variables(5)!.value()),
+            windSpeed:              parseFloat(current.variables(5)!.value().toFixed(2)),
             windDirection:          current.variables(6)!.value(),
         };
 
         res.header("Access-Control-Allow-Origin", '*');
         res.status(200).json(weatherData)
     } catch (error: unknown) {
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(500).json({ message: getErrorMessage(error) })
     }
 });
@@ -51,9 +52,11 @@ weatherRouter.get('/:lat-:lon', cache('15 minutes'), async (req: Request, res: R
 weatherRouter.get('/', async (req: Request ,res: Response) => {
     if(req) // Keeping TS happy
     try{
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(200).json({ message: "No latitude or longitude specified" })
 
     } catch (error: unknown) {
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(500).json({ message: getErrorMessage(error) })
     }
 });

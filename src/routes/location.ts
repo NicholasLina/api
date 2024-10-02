@@ -24,6 +24,7 @@ locationRouter.get('/:location', cache('15 minutes'), async (req: Request, res: 
         res.header("Access-Control-Allow-Origin", '*');
         res.status(200).json(formattedLocation)
     } catch (error: unknown) {
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(500).json({ message: getErrorMessage(error) })
     }
 });
@@ -31,9 +32,11 @@ locationRouter.get('/:location', cache('15 minutes'), async (req: Request, res: 
 locationRouter.get('/', async (req: Request ,res: Response) => {
     if(req) // Keeping TS happy
     try{
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(200).json({ message: "No location specified" })
 
     } catch (error: unknown) {
+        res.header("Access-Control-Allow-Origin", '*');
         res.status(500).json({ message: getErrorMessage(error) })
     }
 });
