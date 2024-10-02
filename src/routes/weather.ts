@@ -34,7 +34,7 @@ weatherRouter.get('/:lat-:lon', cache('15 minutes'), async (req: Request, res: R
             temperatureMax:         parseFloat(daily.variables(0)!.valuesArray()!["0"].toFixed(2)),
             temperatureMin:         parseFloat(daily.variables(1)!.valuesArray()!["0"].toFixed(2)),
             relativeHumidity:       current.variables(2)!.value(),
-            precipitation:          daily.variables(2)!.valuesArray()!["0"].toFixed(2),
+            precipitation:          parseFloat(daily.variables(2)!.valuesArray()!["0"].toFixed(2)),
             weatherCode:            current.variables(3)!.value(),
             cloudCover:             current.variables(4)!.value(),
             windSpeed:              parseFloat(current.variables(5)!.value().toFixed(2)),
