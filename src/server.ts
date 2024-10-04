@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit"
 import weatherRouter from "./routes/weather";
 import fallbackRouter from "./routes/fallback";
 import locationRouter from "./routes/location";
+import ipLocationRouter from "./routes/ip-location";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.set('trust proxy', 1)
 
 app.use('/weather', weatherRouter)
 app.use('/location', locationRouter)
+app.use('/ip-location', ipLocationRouter)
 app.use("*", fallbackRouter)
 
 // Enable cors
